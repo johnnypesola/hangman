@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hangman</title>
-    <link rel="stylesheet" href="./style.css">
-    <!-- <link rel="icon" href="./favicon.ico" type="image/x-icon"> -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Hänga gubbe</title>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <h1>This is hangman.</h1>
+    <h1>Hänga gubben.</h1>
     <div>
-        <canvas id="the-canvas" width="800" height="600"></canvas>
+      <canvas id="the-canvas" width="1250" height="500"></canvas>
     </div>
-    <input id="guess-letter-input" type="text" />
-	<script src="main.js"></script>
+    <div id="letters-history">Tidigare gissningar: &nbsp;</div>
+    <script src="swedish-words.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>

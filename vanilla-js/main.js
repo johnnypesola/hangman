@@ -1,9 +1,9 @@
-let ctx;
 let isGameOver = false;
-let guessLetterInput;
-let secretWord = "secret word"; 
-
-let guessedLetterArray = new Array(secretWord.length).fill(false);
+let ctx;
+let canvasEl;
+let guessedLetterArray;
+const maxSecretWordLength = 29;
+let secretWord;
 
 let anchor = { x: 0, y: 0 };
 
@@ -11,19 +11,24 @@ const x = (val) => anchor.x + val;
 const y = (val) => anchor.y + val;
 
 const getAllIndexes = (arr, val) => {
-    var indexes = [], i = -1;
+    let indexes = [];
+    let i = -1;
     while ((i = arr.indexOf(val, i+1)) != -1){
         indexes.push(i);
     }
     return indexes;
 }
 
+const resetGame = () => {
+    setTimeout(() => {
+        window.location.reload();
+    }, 200);
+}
+
 const main = () => {
     // Get references for HTML elements.
-    const canvasEl = document.getElementById('the-canvas');
-    ctx = canvasEl.getContext("2d");    
-
-    guessLetterInput = document.getElementById("guess-letter-input");
+    canvasEl = document.getElementById('the-canvas');
+    ctx = canvasEl.getContext("2d");
 
     // Set font global style
     ctx.font = "bold 36px serif";
@@ -31,19 +36,35 @@ const main = () => {
 
     // Set up global anchor coords.
     anchor.y = 10;
-    anchor.x = 150;
+    anchor.x = 10;
+
+    // Line style
+    ctx.lineWidth = 2;
+
+    secretWord = prompt("Skriv ett hemligt ord eller avbryt för ett slumpartat ord.");
+    if(!secretWord) {
+        secretWord = getRandomSecretWord();
+    }
+    secretWord = secretWord.toLowerCase();
+
+    guessedLetterArray = new Array(secretWord.length).fill(false);
 
     drawSecretLetterUnderlining(secretWord);
     hookUpUserGuessInput();
 }
 
 const hookUpUserGuessInput = () => {
-    guessLetterInput.addEventListener("input", (e) => {
+    document.body.addEventListener("keypress", (e) => {
         if(isGameOver) return;
 
         let didUserGuessCorrectLetter = false;
 
-        const guessedLetter = e.target.value;
+        const guessedLetter = e.key.toLowerCase();
+
+        // Reset value in user input
+        e.target.value = "";
+
+        if(guessedLetter === " ") return;
 
         const indexesForGuessedLetter = getAllIndexes(secretWord, guessedLetter);
 
@@ -54,28 +75,47 @@ const hookUpUserGuessInput = () => {
             }
         });
 
-        // Reset value in user input
-        e.target.value = "";
-
         if(didUserGuessCorrectLetter) {
             drawCorrectGuessedLetters();
         } else {
             drawHangManStep();
         }
 
+        addLetterToHistory(guessedLetter);
+
         if(hasUserWonGame()) {
-            setTimeout(() => alert("You won!"), 200);
+            setTimeout(() => alert("Grattis. Du vann!"), 200);
             isGameOver = true;
         }
         else if(hasUserLostGame()) {
-            setTimeout(() => alert("You lost!"), 200);
+            setTimeout(() => alert(`Gubben dog. Det hemliga ordet var "${secretWord}". Bättre lycka nästa gång.`), 200);
             isGameOver = true;
         }
 
+        if(isGameOver) {
+            resetGame();
+        }
     });
 }
 
-const hasUserWonGame = () => guessedLetterArray.every((val) => guessedLetterArray.length === secretWord.length && val === true);
+const addLetterToHistory = (letter) => {
+    document.getElementById("letters-history").append(letter);
+}
+
+const getRandomSecretWord = () => {
+    const wordsCount = window.swedishWords.length;
+    const randomWordIndex = Math.floor(Math.random() * (wordsCount - 0 + 1) + 0);
+    const randomWord = window.swedishWords[randomWordIndex];
+    return randomWord;
+}
+
+const hasUserWonGame = () => {
+    const correctLetterCount = guessedLetterArray.filter((value) => value === true).length;
+
+    const numberOfSpaces = (secretWord.match(/ /g) || []).length
+
+    return correctLetterCount === secretWord.length -numberOfSpaces;
+}
 
 const hasUserLostGame = () => drawHangManCommandQueue.length === 0;
 
@@ -99,11 +139,11 @@ const drawSecretLetterUnderlining = (secretWord) => {
     for(let i=0; i<secretWord.length; i++) {
         if(secretWord[i] !== " ") {
             const xOffset= i*40;
+            ctx.beginPath();
             ctx.moveTo(x(xOffset), y(400));
             ctx.lineTo(x(xOffset + 30), y(400));
-            
             ctx.stroke();
-            ctx.closePath();        
+            ctx.closePath();
         }
     }
 }
@@ -202,5 +242,4 @@ const drawHangManCommandQueue = [
     drawLeftLeg,
 ]
 
-// Run main application function
 main();
