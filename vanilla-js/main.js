@@ -254,6 +254,13 @@ const drawLeftLegAndDeadEyesAndSadMouth = () => {
     ctx.closePath();
 }
 
+const triggerDeviceKeyboard = () => {
+    var inputElement = document.getElementById('hiddenInput');
+    inputElement.style.visibility = 'visible'; // unhide the input
+    inputElement.focus(); // focus on it so keyboard pops
+    inputElement.style.visibility = 'hidden'; // hide it again
+}
+
 const drawHangManCommandQueue = [
     drawGround,
     drawLowerPole,
@@ -268,4 +275,7 @@ const drawHangManCommandQueue = [
     drawLeftLegAndDeadEyesAndSadMouth,
 ]
 
-main();
+window.onload = (event) => {
+    main();
+    triggerDeviceKeyboard();
+};
