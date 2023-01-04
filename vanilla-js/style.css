@@ -24,6 +24,7 @@ span#letters-history {
 #enter-word-modal-shadow {
   background: rgba(50, 50, 50, 0.5);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -39,6 +40,7 @@ span#letters-history {
   width: 240px;
   background-color: rgba(150, 150, 150, 0.5);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 3px;
   padding: 10px;
   display: flex;
