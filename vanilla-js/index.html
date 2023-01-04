@@ -13,9 +13,20 @@
       <canvas id="the-canvas" width="1250" height="430"></canvas>
     </div>
 
-    Gissa här: <input type="text" id="hidden-input" autofocus />
+    Gissa här: <input type="text" id="guess-input" autofocus />
 
     <div>Tidigare gissningar: &nbsp;<span id="letters-history"></span></div>
+
+    <div id="enter-word-modal-shadow">
+      <div id="enter-word-modal">
+        <div>Skriv ett hemligt ord</div>
+        <input id="secret-word-input" type="text" />
+        <div>
+          <button id="use-secret-word">Använd eget ord</button>
+          <button id="use-random-word">Slumpartat ord</button>
+        </div>
+      </div>
+    </div>
 
     <script src="swedish-words.js"></script>
     <script src="main.js"></script>

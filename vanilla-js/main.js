@@ -45,20 +45,53 @@ const main = () => {
     // Line style
     ctx.lineWidth = 2;
 
-    secretWord = prompt("Skriv ett hemligt ord eller avbryt för ett slumpartat ord.");
-    if(!secretWord) {
-        secretWord = getRandomSecretWord();
-    }
-    secretWord = secretWord.toLowerCase();
+    hookupModalButtons();
+    hookUpUserGuessInput();
+}
+
+const hookupModalButtons = () => {
+    const useCustomSecretWordButton = document.getElementById("use-secret-word");
+    const useRandomSecretWordButton = document.getElementById("use-random-word");
+
+    useCustomSecretWordButton.addEventListener("click", () => {
+        useCustomSecretWord();
+        hideSecretWordModal();
+    })
+
+    useRandomSecretWordButton.addEventListener("click", () => {
+        useRandomSecretWord();
+        hideSecretWordModal();
+    })
+}
+
+const hideSecretWordModal = () => {
+    const modalShadowElem = document.getElementById("enter-word-modal-shadow");
+    modalShadowElem.style.display = "none";
+    
+    const guessInput = document.getElementById("guess-input");
+    guessInput.focus();
+}
+
+const useRandomSecretWord = () => {
+    secretWord = getRandomSecretWord().toLowerCase();
 
     guessedLetterArray = new Array(secretWord.length).fill(false);
 
     drawSecretLetterUnderlining(secretWord);
-    hookUpUserGuessInput();
+}
+
+const useCustomSecretWord = () => {
+    const input = document.getElementById("secret-word-input");
+    secretWord = input.value.toLowerCase();
+
+    guessedLetterArray = new Array(secretWord.length).fill(false);
+
+    drawSecretLetterUnderlining(secretWord);
 }
 
 const hookUpUserGuessInput = () => {
-    document.body.addEventListener("keypress", (e) => {
+    const input = document.getElementById("guess-input");
+    input.addEventListener("keypress", (e) => {
         if(isGameOver) return;
 
         let didUserGuessCorrectLetter = false;
@@ -254,12 +287,6 @@ const drawLeftLegAndDeadEyesAndSadMouth = () => {
     ctx.closePath();
 }
 
-const triggerDeviceKeyboard = () => {
-    setTimeout(() => {
-        const inputElement = document.getElementById('hidden-input');
-        inputElement.focus(); // focus on it so keyboard pops
-    }, 1000);
-}
 
 const drawHangManCommandQueue = [
     drawGround,
@@ -277,5 +304,4 @@ const drawHangManCommandQueue = [
 
 window.onload = (event) => {
     main();
-    triggerDeviceKeyboard();
 };
