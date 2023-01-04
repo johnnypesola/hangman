@@ -255,8 +255,10 @@ const drawLeftLegAndDeadEyesAndSadMouth = () => {
 }
 
 const triggerDeviceKeyboard = () => {
-    const inputElement = document.getElementById('hidden-input');
-    inputElement.focus(); // focus on it so keyboard pops
+    setTimeout(() => {
+        const inputElement = document.getElementById('hidden-input');
+        inputElement.focus(); // focus on it so keyboard pops
+    }, 1000);
 }
 
 const drawHangManCommandQueue = [
