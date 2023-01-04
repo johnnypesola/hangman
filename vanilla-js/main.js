@@ -225,9 +225,31 @@ const drawRightLeg = () => {
     ctx.closePath();
 }
 
-const drawLeftLeg = () => {
+const drawLeftLegAndDeadEyesAndSadMouth = () => {
+    // Left leg
     ctx.moveTo(x(25), y(240));
     ctx.lineTo(x(50), y(200));
+    ctx.stroke();
+    ctx.closePath();
+
+    // Right eye
+    ctx.moveTo(x(48), y(100));
+    ctx.lineTo(x(40), y(92));
+    ctx.moveTo(x(40), y(100));
+    ctx.lineTo(x(48), y(92));
+    ctx.stroke();
+    ctx.closePath();
+    // Left eye
+    ctx.moveTo(x(60), y(100));
+    ctx.lineTo(x(52), y(92));
+    ctx.moveTo(x(52), y(100));
+    ctx.lineTo(x(60), y(92));
+    ctx.stroke();
+    ctx.closePath();
+
+    // Sad mouth
+    ctx.beginPath();
+    ctx.arc(x(50), y(112), 7, 0, Math.PI, true)
     ctx.stroke();
     ctx.closePath();
 }
@@ -243,7 +265,7 @@ const drawHangManCommandQueue = [
     drawRightArm,
     drawLeftArm,
     drawRightLeg,
-    drawLeftLeg,
+    drawLeftLegAndDeadEyesAndSadMouth,
 ]
 
 main();
