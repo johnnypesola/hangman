@@ -1,8 +1,9 @@
 body {
-  background: #888;
+  background: #444;
   color: #eee;
+  font-size: 22px;
+  font-family: serif;
 }
 
 canvas {
-  border: 1px solid black;
 }

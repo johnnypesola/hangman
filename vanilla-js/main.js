@@ -30,9 +30,13 @@ const main = () => {
     canvasEl = document.getElementById('the-canvas');
     ctx = canvasEl.getContext("2d");
 
-    // Set font global style
+    // Set global style
     ctx.font = "bold 36px serif";
     ctx.textAlign = "center";
+
+    // Set colors
+    ctx.fillStyle = "#FFF";
+    ctx.strokeStyle = "#FFF";
 
     // Set up global anchor coords.
     anchor.y = 10;
@@ -99,7 +103,7 @@ const hookUpUserGuessInput = () => {
 }
 
 const addLetterToHistory = (letter) => {
-    document.getElementById("letters-history").append(letter);
+    document.getElementById("letters-history").append(letter.toUpperCase());
 }
 
 const getRandomSecretWord = () => {
