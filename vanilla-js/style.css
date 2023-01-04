@@ -8,3 +8,11 @@ body {
 span#letters-history {
   letter-spacing: 5px;
 }
+
+#hidden-input,
+#hidden-input:focus {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: transparent;
+}

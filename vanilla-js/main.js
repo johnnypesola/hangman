@@ -255,10 +255,8 @@ const drawLeftLegAndDeadEyesAndSadMouth = () => {
 }
 
 const triggerDeviceKeyboard = () => {
-    var inputElement = document.getElementById('hiddenInput');
-    inputElement.style.visibility = 'visible'; // unhide the input
+    const inputElement = document.getElementById('hidden-input');
     inputElement.focus(); // focus on it so keyboard pops
-    inputElement.style.visibility = 'hidden'; // hide it again
 }
 
 const drawHangManCommandQueue = [
