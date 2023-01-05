@@ -96,7 +96,7 @@ const hookUpUserGuessInput = () => {
 
         let didUserGuessCorrectLetter = false;
 
-        const guessedLetter = e.key.toLowerCase();
+        const guessedLetter = e.target.value[0].toLowerCase();
 
         // Reset value in user input
         e.target.value = "";
