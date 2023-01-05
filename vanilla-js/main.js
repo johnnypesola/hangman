@@ -91,7 +91,7 @@ const useCustomSecretWord = () => {
 
 const hookUpUserGuessInput = () => {
     const input = document.getElementById("guess-input");
-    input.addEventListener("keypress", (e) => {
+    input.addEventListener("keyup", (e) => {
         if(isGameOver) return;
 
         let didUserGuessCorrectLetter = false;
